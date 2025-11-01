@@ -1,0 +1,44 @@
+[
+  {
+    "email": "221801390010@cutmap.ac.in",
+    "token": "1ed2419a79bc6711e503a6a8c94563bcc004552a0bc34a3e9f0fcae39756f966",
+    "expiresAt": "2025-09-10T15:39:28.524Z",
+    "used": false
+  },
+  {
+    "email": "221801390026@cutmap.ac.in",
+    "token": "dac2f02c0cded2219896f7c4d8235a2c87da6d7a74e0bf86d5079969c5ae0cea",
+    "expiresAt": "2025-09-10T18:26:44.198Z",
+    "used": true
+  },
+  {
+    "email": "221801390011@cutmap.ac.in",
+    "token": "d3a79dff85e4c0c38c2e2b6776cdd0e62740c6f8db7cd9a261160745040e9b47",
+    "expiresAt": "2025-09-11T05:58:12.573Z",
+    "used": true
+  },
+  {
+    "email": "221801350009@cutmap.ac.in",
+    "token": "7ab8b0e8586e919e127532266b40dadca74133fa8a94d2c9c4e6bc636571afbf",
+    "expiresAt": "2025-09-11T05:35:22.102Z",
+    "used": true
+  },
+  {
+    "email": "221801350010@cutmap.ac.in",
+    "token": "a5cfaf4eb3e3922fca264069d93e813dc2cd4601c6f47497a2cb78912560389f",
+    "expiresAt": "2025-09-11T05:45:32.700Z",
+    "used": false
+  },
+  {
+    "email": "221801390024@cutmap.ac.in",
+    "token": "cc3d110879fd3868d9eaca9d5a960f8e4e9bc4c303d7971b3882bf5b773f59dd",
+    "expiresAt": "2025-09-11T05:52:34.110Z",
+    "used": false
+  },
+  {
+    "email": "221801350015@cutmap.ac.in",
+    "token": "35711acffd8186a2dcb7439571191c33afbc9c4527b39e8325b4967243787ef3",
+    "expiresAt": "2025-09-11T06:21:01.638Z",
+    "used": true
+  }
+]

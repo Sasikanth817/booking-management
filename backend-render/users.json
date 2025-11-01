@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1754463070612",
+    "name": "satwik",
+    "email": "221801350015@cutmap.ac.in",
+    "password": "$2b$10$U1JfgpYFIBbla/G4lXcUWuan2yJxmrigwo8quO1FUj4WaGuyNE.Ja",
+    "role": "user"
+  },
+  {
+    "id": "1757392573422",
+    "name": "Aditya",
+    "email": "221801390010@cutmap.ac.in",
+    "password": "$2b$10$XDQVxdPVTciz1eECQDUQueDwyEUS16CgxG.6HKrETRzI2lN3834i2",
+    "role": "user"
+  },
+  {
+    "id": "admin-1",
+    "name": "Admin",
+    "email": "satwikpotnuru26@gmail.com",
+    "password": "$2b$10$64gZdV6RE/fiBf0JyEtlU.Z/CeJb/0QItMc3NhvsEHZ7rbeSYbrlK",
+    "role": "admin"
+  },
+  {
+    "id": "1757392573423",
+    "name": "Prasanna",
+    "email": "221801390026@cutmap.ac.in",
+    "password": "$2b$10$ZhfUC2u2ght49tkrJHxCWu/JEjUCcqJOxvUk.joxgOL.Xf7knfGNW",
+    "role": "user"
+  },
+  {
+    "id": "1757392573424",
+    "name": "Sasikanth",
+    "email": "221801390011@cutmap.ac.in",
+    "password": "$2b$10$2aMCw9SCjatTEexLGZYIoe//hJsQ2aKlrRcisrjSQkQTE..FVUAcW",
+    "role": "user"
+  },
+  {
+    "id": "1757392573425",
+    "name": "New Test User",
+    "email": "221801350009@cutmap.ac.in",
+    "password": "$2b$10$kvhNNQ7lsTwgnhQGjzdlO.X0lKBa3PFC88TUu2MV4DL6BXLP5GLt6",
+    "role": "user"
+  },
+  {
+    "id": "68c253d8b9d510b1302009f1",
+    "name": "Test New User",
+    "email": "221801350010@cutmap.ac.in",
+    "password": "$2b$10$t2bSaxu7sCkq4hXUUMDhgOWVaptIWNUN0JD46gBOZTNVuNknf/TxG",
+    "role": "user"
+  },
+  {
+    "id": "68c255156b5fe8c943a73b75",
+    "name": "Dragon ",
+    "email": "221801390024@cutmap.ac.in",
+    "password": "$2b$10$jlSGf0fFMuTv9gZDMj1LauqBg.dBn/h7sIrGBrezFMXYww4ucrzSa",
+    "role": "user"
+  },
+  {
+    "id": "68c25b8621ee2b61cf71f43c",
+    "name": "Satwik",
+    "email": "221801350015@cutmap.ac.in",
+    "password": "123456",
+    "role": "user"
+  }
+]
