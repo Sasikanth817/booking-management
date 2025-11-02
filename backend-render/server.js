@@ -7,7 +7,11 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "https://booking-management-seven.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true
+}));
 
 // ✅ Health check route for Render
 app.get("/", (req, res) => {
