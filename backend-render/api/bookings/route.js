@@ -30,7 +30,25 @@ export async function POST(req, res) {
   try {
     await dbConnect();
     
-    const payload = req.body || {};
+    let payload = {};
+    try {
+      payload = await new Promise((resolve, reject) => {
+        let body = '';
+        req.on('data', chunk => {
+          body += chunk.toString();
+        });
+        req.on('end', () => {
+          try {
+            resolve(JSON.parse(body));
+          } catch (e) {
+            reject(e);
+          }
+        });
+        req.on('error', reject);
+      });
+    } catch (e) {
+      return res.status(400).json({ message: 'Invalid JSON payload' });
+    }
     
     // Conflict check: overlapping booking for same hall/date/time window
     const { hallName, bookingDate, startTime, endTime } = payload;
@@ -72,7 +90,27 @@ export async function PATCH(req, res) {
   try {
     await dbConnect();
     
-    const { id, status } = req.body || {};
+    let payload = {};
+    try {
+      payload = await new Promise((resolve, reject) => {
+        let body = '';
+        req.on('data', chunk => {
+          body += chunk.toString();
+        });
+        req.on('end', () => {
+          try {
+            resolve(JSON.parse(body));
+          } catch (e) {
+            reject(e);
+          }
+        });
+        req.on('error', reject);
+      });
+    } catch (e) {
+      return res.status(400).json({ message: 'Invalid JSON payload' });
+    }
+    
+    const { id, status } = payload;
     if (!id || !status || !['pending', 'approved', 'rejected'].includes(status)) {
       return res.status(400).json({ message: 'Invalid id or status' });
     }
@@ -91,20 +129,5 @@ export async function PATCH(req, res) {
   } catch (e) {
     console.error('Bookings PATCH error:', e);
     res.status(500).json({ message: 'Internal server error' });
-  }
-}
-
-// Express route handler
-export default function handler(req, res) {
-  switch (req.method) {
-    case 'GET':
-      return GET(req, res);
-    case 'POST':
-      return POST(req, res);
-    case 'PATCH':
-      return PATCH(req, res);
-    default:
-      res.setHeader('Allow', ['GET', 'POST', 'PATCH']);
-      res.status(405).json({ message: `Method ${req.method} not allowed` });
   }
 }

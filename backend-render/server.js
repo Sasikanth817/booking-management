@@ -8,14 +8,14 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "https://booking-management-seven.vercel.app",
+  origin: "https://booking-management-seven.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true
 }));
 
 // ✅ Health check route for Render
 app.get("/", (req, res) => {
-  res.status(200).send("✅ Backend is live and running!");
+  res.status(200).json({ message: "✅ Backend is live and running!", timestamp: new Date().toISOString() });
 });
 
 // MongoDB connection
@@ -25,7 +25,10 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log("✅ MongoDB Atlas connected"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err);
+    process.exit(1);
+  });
 
 // Test route
 app.get("/api/test", (req, res) => {
@@ -50,23 +53,31 @@ function loadRoutes(dir) {
 
     if (stat.isDirectory()) {
       loadRoutes(filePath);
-    } else if (file.endsWith(".js") && file !== "server.js") {
-      import(filePath)
-        .then((module) => {
-          const relativePath = path.relative(path.join(__dirname, "api"), dir);
-          const routePath = relativePath ? `/api/${relativePath}` : "/api";
+    } else if ((file.endsWith(".js") || file.endsWith(".ts")) && file !== "server.js" && file !== "server.ts") {
+      // Prefer .js files over .ts files
+      const jsFilePath = filePath.replace(/\.ts$/, '.js');
+      const finalFilePath = fs.existsSync(jsFilePath) ? jsFilePath : filePath;
+      
+      // Only import .js files, skip .ts files if no .js equivalent exists
+      if (finalFilePath.endsWith('.js')) {
+        import(finalFilePath)
+          .then((module) => {
+            const relativePath = path.relative(path.join(__dirname, "api"), dir);
+            const routePath = relativePath ? `/api/${relativePath}` : "/api";
 
-          if (module.GET) app.get(routePath, module.GET);
-          if (module.POST) app.post(routePath, module.POST);
-          if (module.PUT) app.put(routePath, module.PUT);
-          if (module.PATCH) app.patch(routePath, module.PATCH);
-          if (module.DELETE) app.delete(routePath, module.DELETE);
+            // Handle Next.js style route handlers
+            if (module.GET) app.get(routePath, module.GET);
+            if (module.POST) app.post(routePath, module.POST);
+            if (module.PUT) app.put(routePath, module.PUT);
+            if (module.PATCH) app.patch(routePath, module.PATCH);
+            if (module.DELETE) app.delete(routePath, module.DELETE);
 
-          console.log(`✅ Loaded route: ${routePath}`);
-        })
-        .catch((err) => {
-          console.error(`❌ Error loading route ${filePath}:`, err);
-        });
+            console.log(`✅ Loaded route: ${routePath}`);
+          })
+          .catch((err) => {
+            console.error(`❌ Error loading route ${finalFilePath}:`, err);
+          });
+      }
     }
   });
 }
@@ -74,8 +85,19 @@ function loadRoutes(dir) {
 // Load all API routes
 loadRoutes(path.join(__dirname, "api"));
 
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("❌ Global error handler:", err);
+  res.status(500).json({ message: "Internal server error" });
+});
+
 // ✅ Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, "0.0.0.0", () =>
-  console.log(`🚀 Server running on port ${PORT}`)
-);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
